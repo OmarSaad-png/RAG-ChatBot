@@ -22,8 +22,8 @@ This project implements a Reinforcement Learning ChatBot using various component
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/reinforcement-learning-chatbot.git
-   cd reinforcement-learning-chatbot
+   git clone https://github.com/OmarSaad-png/RAG-ChatBot.git
+   cd RAG-ChatBot
    ```
 
 2. Install the required packages:
