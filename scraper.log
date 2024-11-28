@@ -1,0 +1,26 @@
+2024-11-28 17:03:19,270 - INFO - Starting scraping process...
+2024-11-28 17:03:19,277 - INFO - Visiting: https://en.wikipedia.org/wiki/Reinforcement_learning (depth 0)
+2024-11-28 17:03:19,284 - INFO - Scraping completed.
+2024-11-28 17:03:19,285 - INFO - Scraping completed.
+2024-11-28 17:03:19,285 - INFO - Scraping completed.
+2024-11-28 17:03:19,286 - INFO - Scraping completed.
+2024-11-28 17:03:20,411 - INFO - Saved output/20241128_170320_cecfb51a025421a8d22a6fa8a7094e15_chunk_1.md
+2024-11-28 17:03:20,412 - INFO - Saved output/20241128_170320_cecfb51a025421a8d22a6fa8a7094e15_chunk_2.md
+2024-11-28 17:03:20,413 - INFO - Saved output/20241128_170320_cecfb51a025421a8d22a6fa8a7094e15_chunk_3.md
+2024-11-28 17:03:20,504 - INFO - Saved output/20241128_170320_cecfb51a025421a8d22a6fa8a7094e15_chunk_4.md
+2024-11-28 17:03:20,506 - INFO - Saved output/20241128_170320_cecfb51a025421a8d22a6fa8a7094e15_chunk_5.md
+2024-11-28 17:03:20,507 - INFO - Saved output/20241128_170320_cecfb51a025421a8d22a6fa8a7094e15_chunk_6.md
+2024-11-28 17:03:22,397 - INFO - Scraping completed.
+2024-11-28 17:04:26,081 - INFO - Starting scraping process...
+2024-11-28 17:04:26,086 - INFO - Visiting: https://en.wikipedia.org/wiki/Reinforcement_learning (depth 0)
+2024-11-28 17:04:26,092 - INFO - Scraping completed.
+2024-11-28 17:04:26,093 - INFO - Scraping completed.
+2024-11-28 17:04:26,093 - INFO - Scraping completed.
+2024-11-28 17:04:26,094 - INFO - Scraping completed.
+2024-11-28 17:04:27,100 - INFO - Saved output/20241128_170427_cecfb51a025421a8d22a6fa8a7094e15_chunk_1.md
+2024-11-28 17:04:27,101 - INFO - Saved output/20241128_170427_cecfb51a025421a8d22a6fa8a7094e15_chunk_2.md
+2024-11-28 17:04:27,102 - INFO - Saved output/20241128_170427_cecfb51a025421a8d22a6fa8a7094e15_chunk_3.md
+2024-11-28 17:04:27,103 - INFO - Saved output/20241128_170427_cecfb51a025421a8d22a6fa8a7094e15_chunk_4.md
+2024-11-28 17:04:27,104 - INFO - Saved output/20241128_170427_cecfb51a025421a8d22a6fa8a7094e15_chunk_5.md
+2024-11-28 17:04:27,105 - INFO - Saved output/20241128_170427_cecfb51a025421a8d22a6fa8a7094e15_chunk_6.md
+2024-11-28 17:04:28,957 - INFO - Scraping completed.
