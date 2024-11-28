@@ -33,16 +33,17 @@ This project implements a Reinforcement Learning ChatBot using various component
 
 ## Usage
 
-1. Prepare your text documents in the `output` directory (Markdown format).
-2. Run the document processing script to split documents into chunks:
+1. Start the web scraping process to gather content:
+   ```bash
+   python Scraper.py
+   ```
+2. Add additional text documents in the `output` directory (Markdown format).
+3. Run the document processing script to split documents into chunks:
    ```bash
    python Document_Processing.py
    ```
 
-3. Start the web scraping process to gather additional content:
-   ```bash
-   python Scraper.py
-   ```
+
 
 4. Launch the Streamlit application for the ChatBot:
    ```bash
