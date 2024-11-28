@@ -1,0 +1,8 @@
+streamlit
+langchain
+langchain-huggingface
+langchain-community
+aiohttp
+beautifulsoup4
+pdfplumber
+tenacity
