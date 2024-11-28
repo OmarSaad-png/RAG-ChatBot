@@ -1,76 +1,72 @@
 import streamlit as st
-import requests
+import os
 import logging
 from langchain.llms import HuggingFacePipeline
-from transformers import pipeline
 from langchain.chains import ConversationalRetrievalChain
-from Vector_Store1 import create_vector_store  
+from langchain.memory import ConversationBufferMemory
 from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
 from langchain.prompts import ChatPromptTemplate
-from langchain.memory import ConversationBufferMemory
-import os
-import re
+from Vector_Store1 import create_vector_store  
+from concurrent.futures import ThreadPoolExecutor
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Environment variables for Hugging Face API
-os.environ["HUGGINGFACEHUB_API_TOKEN"] = "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"
+# Streamlit caching for efficiency
+@st.cache_resource
+def create_cached_vector_store(texts):
+    return create_vector_store(texts)
 
-
-# Function to load text chunks from files
-def load_text_chunks(directory="text_chunks"):
+def load_text_chunks_parallel(directory="text_chunks"):
     text_chunks = []
     if not os.path.exists(directory):
         logger.error(f"Directory '{directory}' does not exist.")
         st.error(f"Directory '{directory}' does not exist.")
         return []
 
-    for filename in os.listdir(directory):
-        if filename.endswith(".txt"):
-            file_path = os.path.join(directory, filename)
-            with open(file_path, "r", encoding="utf-8") as f:
-                content = f.read().strip()
-                if content:
-                    text_chunks.append(content)
-                else:
-                    logger.warning(f"File {file_path} is empty and will be skipped.")
+    with ThreadPoolExecutor() as executor:
+        text_chunks = list(executor.map(read_file, os.listdir(directory)))
+    
+    text_chunks = [chunk for sublist in text_chunks for chunk in sublist if chunk]
     return text_chunks
 
+def read_file(filename):
+    file_chunks = []
+    if filename.endswith(".txt"):
+        file_path = os.path.join("text_chunks", filename)
+        with open(file_path, "r", encoding="utf-8") as f:
+            content = f.read().strip()
+            if content:
+                file_chunks.append(content)
+            else:
+                logger.warning(f"File {file_path} is empty and will be skipped.")
+    return file_chunks
 
 # Initialize LLM and conversational chain
 def get_conversational_chain(vector_store):
     llm = HuggingFaceEndpoint(
         repo_id="HuggingFaceH4/zephyr-7b-beta",
         task="text-generation",
-        max_new_tokens=512,
+        max_new_tokens=256,
         do_sample=True,
         repetition_penalty=1.03,
         temperature=0.7,
     )
     chat_model = ChatHuggingFace(llm=llm)
 
-    # Define prompts
     condense_question_template = """
-    Given the following conversation and a follow-up question, rephrase the follow-up question to be a standalone question.
-
-    Chat History:
-    {chat_history}
+    Given the following conversation on Reinforcement Learning and a follow-up question, prompt engineer the follow-up question to be a standalone question.
+    Chat History: {chat_history}
     Follow-Up Input: {question}
     Standalone question:
     """
     condense_question_prompt = ChatPromptTemplate.from_template(condense_question_template)
 
     qa_template = """
-    You are an researcher in Reinforcement learning required to answer questions.
-    Use the following pieces of retrieved context to answer the question and don't halucinate.
-    If you don't know the answer, say that you don't know.
-
-    Chat History:
-    {chat_history}
-    Other context:
-    {context}
+    You are a researcher in Reinforcement learning. Use the following pieces of retrieved context to answer the question, make tour answer concise. If you don't know the answer, say that you don't know, don't halucinate.
+    Chat History: {chat_history}
+    Other context: {context}
     Question: {question}
     """
     qa_prompt = ChatPromptTemplate.from_template(qa_template)
@@ -79,7 +75,7 @@ def get_conversational_chain(vector_store):
 
     conversation_chain = ConversationalRetrievalChain.from_llm(
         llm=chat_model,
-        retriever=vector_store.as_retriever(),
+        retriever=vector_store.as_retriever(search_kwargs={"k": 3}),
         condense_question_prompt=condense_question_prompt,
         combine_docs_chain_kwargs={"prompt": qa_prompt},
         memory=memory,
@@ -87,13 +83,14 @@ def get_conversational_chain(vector_store):
 
     return conversation_chain
 
-texts = load_text_chunks()
+# Main app logic
+texts = load_text_chunks_parallel()
 
 if not texts:
     st.error("No text chunks available for creating the vector store.")
 else:
-    vector_store = create_vector_store(texts)  # Create vector store
-    conversation_chain = get_conversational_chain(vector_store)  # Initialize conversation_chain here
+    vector_store = create_cached_vector_store(texts)  # Cached vector store
+    conversation_chain = get_conversational_chain(vector_store)
 
 query = st.text_input("Enter your question:")
 
