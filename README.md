@@ -9,7 +9,6 @@ This project implements a Reinforcement Learning ChatBot using various component
 - [Usage](#usage)
 - [File Descriptions](#file-descriptions)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
