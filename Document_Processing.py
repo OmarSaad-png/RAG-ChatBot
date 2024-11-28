@@ -41,7 +41,7 @@ def split_documents(documents, chunk_size=1500, chunk_overlap=50):
 def save_chunks_to_file(chunks, output_directory):
     """Save text chunks to separate files in the specified directory."""
     if not os.path.exists(output_directory):
-        os.makedirs(output_directory)  # Create the directory if it doesn't exist
+        os.makedirs(output_directory)  
 
     for i, chunk in enumerate(chunks):
         output_file = os.path.join(output_directory, f"chunk_{i + 1}.txt")  # Naming each chunk file
@@ -55,9 +55,9 @@ def save_chunks_to_file(chunks, output_directory):
 if __name__ == "__main__":
     # Configuration
     markdown_directory = "output"
-    output_directory = "text_chunks"  # New directory for saving chunks
+    output_directory = "text_chunks"
     chunk_size = 1500
-    chunk_overlap = 50
+    chunk_overlap = 200
 
     # Load documents
     try:
