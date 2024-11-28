@@ -1,0 +1,13 @@
+streamlit
+faiss-cpu
+torch
+sentence-transformers
+langchain
+pypdf2
+pdfplumber
+requests
+beautifulsoup4
+transformers
+aiohttp
+nest_asyncio
+tenacity
